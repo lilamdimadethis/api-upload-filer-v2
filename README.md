@@ -32,6 +32,20 @@ Version 3 (v3) includes enhanced security features for file uploads:
 - **Access Control**: Files can only be accessed via a URL with the correct key. Invalid keys will result in an error message.
 - **Improved Security**: Prevent unauthorized access to uploaded files by validating access keys.
 
+### URL Structure Comparison
+
+#### v2
+- **File Directory**: You can see the file name.
+- **Example URL**: [https://api-upload-filer-v2.glitch.me/upload/Opera%20Snapshot_2024-01-11_134603_www.google.com.png](https://api-upload-filer-v2.glitch.me/upload/Opera%20Snapshot_2024-01-11_134603_www.google.com.png) (no private key)
+
+#### v3
+- **No File Directory, No File Name**: Enhanced privacy as the file name and directory are not visible.
+- **Added Private Key**: Each file access requires a unique private key for security.
+- **New Encoding and Decoding**: Security enhancements with improved encoding and decoding mechanisms.
+- **Generated Keys Stored in a File**: All generated keys are securely stored in a file.
+- **Example URL**: [https://api-upload-filer-v2.glitch.me/v3.php?file=8e92e9af9eacbaa30b03315dc4d85724e61bda36.png&key=268cff54f0f45b49018cb4609590d4b0](https://api-upload-filer-v2.glitch.me/v3.php?file=8e92e9af9eacbaa30b03315dc4d85724e61bda36.png&key=268cff54f0f45b49018cb4609590d4b0)
+
+
 ### Important Note
 
 ![Warning](https://via.placeholder.com/15/f03c15/000000?text=+) **A BIG PROBLEM WITH UPLOADING DATA TO A DIRECTORY IS THAT THE DIRECTORY IS PUBLIC AND ANYONE CAN SEE IT. DO NOT PUT PRIVATE DATA THERE.**
