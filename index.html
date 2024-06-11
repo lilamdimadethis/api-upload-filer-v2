@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Upload Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+            margin: 0;
+            position: relative;
+        }
+        .upload-container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .upload-container input {
+            display: block;
+            margin-bottom: 10px;
+        }
+        .response {
+            margin-top: 20px;
+        }
+        .corner-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            z-index: 10;
+        }
+        .corner-button a {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            font-weight: bold;
+            text-transform: uppercase;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+        .corner-button a:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="corner-button">
+        <a href="https://github.com/lilamdimadethis/api-upload-filer-v2" target="_blank">See my code</a>
+    </div>
+
+    <div class="upload-container">
+        <h2>Upload a File</h2>
+        <form id="uploadForm">
+            <input type="file" id="fileInput" name="file" required>
+            <button type="submit">Upload</button>
+        </form>
+        <div class="response" id="response"></div>
+    </div>
+
+    <script>
+        document.getElementById('uploadForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            var formData = new FormData();
+            var fileInput = document.getElementById('fileInput');
+            var file = fileInput.files[0];
+            formData.append('file', file);
+
+            fetch('https://api-upload-filer-v2.glitch.me/index.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                var responseDiv = document.getElementById('response');
+                if (data.status === 'success') {
+                    responseDiv.innerHTML = `<p>File uploaded successfully! <a href="${data.url}" target="_blank">View File</a></p>`;
+                } else {
+                    responseDiv.innerHTML = `<p>Error: ${data.message}</p>`;
+                }
+            })
+            .catch(error => {
+                var responseDiv = document.getElementById('response');
+                responseDiv.innerHTML = `<p>Error: ${error.message}</p>`;
+            });
+        });
+    </script>
+</body>
+</html>
